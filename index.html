@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EL JUEGO DE LAS PREGUNTAS</title>
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    color:white;
+    font-family:Arial,sans-serif;
+    overflow:hidden;
+}
+
+#pixel{
+    position:fixed;
+    top:8px;
+    left:8px;
+    width:15px;
+    height:15px;
+    background:red;
+    cursor:pointer;
+    z-index:100;
+}
+
+#game{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#screen{
+    width:90%;
+    max-width:600px;
+    text-align:center;
+    background:#080808;
+    border:2px solid #222;
+    padding:30px;
+    z-index:2;
+}
+
+#question{
+    font-size:22px;
+    margin:25px;
+}
+
+input{
+    padding:14px;
+    width:75%;
+    background:#111;
+    color:white;
+    border:2px solid #555;
+    font-size:17px;
+}
+
+button{
+    margin-top:15px;
+    padding:13px 25px;
+    background:#222;
+    color:white;
+    border:2px solid #555;
+    font-size:16px;
+}
+
+#table{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:25%;
+    background:#29170e;
+    border-top:8px solid #432719;
+}
+
+#house{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#050505;
+    z-index:50;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.building{
+    width:300px;
+    height:220px;
+    background:#241812;
+    border:5px solid #111;
+    position:relative;
+}
+
+.roof{
+    position:absolute;
+    top:-90px;
+    left:-25px;
+    width:350px;
+    height:100px;
+    background:#351b13;
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+
+.door{
+    position:absolute;
+    bottom:0;
+    left:115px;
+    width:70px;
+    height:120px;
+    background:#0b0b0b;
+    cursor:pointer;
+    border:4px solid #000;
+}
+</style>
+</head>
+
+<body>
+
+<div id="pixel"></div>
+
+<div id="game">
+    <div id="screen">
+
+        <h1>EL JUEGO DE LAS PREGUNTAS</h1>
+
+        <div id="question">
+            ¿Cuál es tu nombre?
+        </div>
+
+        <input id="answer" placeholder="Escribe aquí">
+
+        <br>
+
+        <button id="button" onclick="answerQuestion()">
+            CONTINUAR
+        </button>
+
+    </div>
+
+    <div id="table"></div>
+</div>
+
+<div id="house">
+
+    <div class="building">
+        <div class="roof"></div>
+        <div class="door" onclick="openDoor()"></div>
+    </div>
+
+    <p>Encontraste una casa...</p>
+    <p>La puerta está cerrada.</p>
+
+</div>
+
+<script>
+
+let number=0;
+let name="";
+
+const questions=[
+"¿Cuál es tu juego favorito?",
+"¿Cuál es tu color favorito?",
+"¿Cuál es tu
